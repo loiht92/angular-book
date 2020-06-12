@@ -12,8 +12,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class BookUpdateComponent implements OnInit {
 
   book: Book[];
-  failMessage: string;
   successMessage: string;
+  failMessage: string;
   bookForm: FormGroup;
   constructor(private bookService: BookService,
               private route: ActivatedRoute,
@@ -34,13 +34,14 @@ export class BookUpdateComponent implements OnInit {
     );
 
     const id = +this.route.snapshot.paramMap.get('id');
-    this.bookService.getBookById(id).subscribe(
-      next => (this.book = next),
-      error => {
-        console.log(error);
-        this.book = null;
-      }
-    );
+    this.bookService.getBookById(id)
+      .subscribe(result => {
+      this.book = result;
+      this.bookForm.patchValue(this.book);
+      this.successMessage = 'Edit book successfully !';
+    }, error => {
+      this.failMessage = 'Edit book fail';
+    });
   }
 
   onSubmit() {
