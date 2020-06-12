@@ -1,0 +1,20 @@
+<p>book works!</p>
+
+<h2>List Book</h2>
+<a [routerLink]="['/book-add']">Add Category</a>
+<ul>
+  <li *ngFor="let book of bookList; index as i">
+    <h3>
+      <a [routerLink]="['/', book.id]">
+        Book: {{book.id}} - {{book.title}} - {{book.author}} - {{book.description}}
+      </a>
+    </h3>
+
+    <a [routerLink]="['/book', book.id]">Edit</a>
+
+    <a [routerLink]="['/book', book.id]">Details</a>
+
+    <button (click)="deleteBook(i)">Delete</button>
+  </li>
+</ul>
+
